@@ -11,6 +11,7 @@ import ServiceInvoice from '../../components/admin/ServiceInvoice';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 const ServiceProcessingPage = () => {
   const invoiceRef = useRef();
@@ -35,7 +36,7 @@ const ServiceProcessingPage = () => {
   const fetchServices = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:5000/admin/services', {
+      const response = await axios.get(`${API_URL}/admin/services`, {
         withCredentials: true
       });
       setServices(response.data);
@@ -49,7 +50,7 @@ const ServiceProcessingPage = () => {
 
   const handleStatusUpdate = async (serviceId, newStatus) => {
     try {
-      await axios.patch(`http://localhost:5000/admin/services/${serviceId}/status`, {
+      await axios.patch(`${API_URL}/admin/services/${serviceId}/status`, {
         status: newStatus
       }, {
         withCredentials: true
@@ -64,7 +65,7 @@ const ServiceProcessingPage = () => {
   // Update payment status
   const handlePaymentStatusUpdate = async (serviceId, newStatus) => {
     try {
-      await axios.patch(`http://localhost:5000/admin/services/${serviceId}/payment-status`, {
+      await axios.patch(`${API_URL}/admin/services/${serviceId}/payment-status`, {
         paymentStatus: newStatus
       }, {
         withCredentials: true
@@ -116,7 +117,7 @@ const ServiceProcessingPage = () => {
     formData.append('certificate', selectedFile);
 
     try {
-      await axios.post(`http://localhost:5000/admin/services/${selectedRow._id}/certificate`,
+      await axios.post(`${API_URL}/admin/services/${selectedRow._id}/certificate`,
         formData,
         {
           withCredentials: true,
@@ -221,7 +222,7 @@ const ServiceProcessingPage = () => {
 
     try {
       const ids = selectedRows.map(row => row._id);
-      await axios.post('http://localhost:5000/invoices/delete-multiple', { ids }, {
+      await axios.post(`${API_URL}/invoices/delete-multiple`, { ids }, {
         withCredentials: true
       });
       toast.success("Deleted successfully");
@@ -481,7 +482,7 @@ const ServiceProcessingPage = () => {
                             item.match(/\.(jpg|jpeg|png)$/i) ? (
                               <img
                                 key={i}
-                                src={`http://localhost:5000/uploads/${item}`}
+                                src={`${API_URL}/uploads/${item}`}
                                 alt={`Uploaded ${key} ${i + 1}`}
                                 className={`h-auto border rounded mb-1 ${key.toLowerCase().includes('cnic') || key.toLowerCase().includes('document')
                                   ? 'w-full max-w-xs'
@@ -496,7 +497,7 @@ const ServiceProcessingPage = () => {
                           ))
                         ) : value?.match?.(/\.(jpg|jpeg|png)$/i) ? (
                           <img
-                            src={`http://localhost:5000/uploads/${value}`}
+                            src={`${API_URL}/uploads/${value}`}
                             alt={`Uploaded ${key}`}
                             className={`h-auto border rounded mb-1 ${key.toLowerCase().includes('cnic') || key.toLowerCase().includes('document')
                               ? 'w-full max-w-xs'

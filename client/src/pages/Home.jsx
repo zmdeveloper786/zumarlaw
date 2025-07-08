@@ -37,11 +37,12 @@ const Home = () => {
 
       const verifyUser = async () => {
         try {
-          const res = await fetch('http://localhost:5000/auth/verify-user', {
+          const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+          const res = await fetch(`${API_BASE_URL}/auth/verify-user`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
-          });
+          })
 
           if (res.status === 401) {
             localStorage.removeItem('user');

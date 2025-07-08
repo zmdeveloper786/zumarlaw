@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
 const NewPayroll = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -28,10 +31,10 @@ const NewPayroll = () => {
       try {
         setLoading(true);
         const [branchesRes, employeesRes, payersRes, monthsRes] = await Promise.all([
-          axios.get('http://localhost:5000/branches'),
-          axios.get('http://localhost:5000/employees'),
-          axios.get('http://localhost:5000/payers'),
-          axios.get('http://localhost:5000/payroll-months'),
+          axios.get(`${API_BASE_URL}/branches`),
+          axios.get(`${API_BASE_URL}/employees`),
+          axios.get(`${API_BASE_URL}/payers`),
+          axios.get(`${API_BASE_URL}/payroll-months`),
         ]);
         setBranches(branchesRes.data);
         setEmployees(employeesRes.data);
@@ -52,7 +55,7 @@ const NewPayroll = () => {
       (async () => {
         setLoading(true);
         try {
-          const res = await axios.get(`http://localhost:5000/payrolls/${id}`);
+          const res = await axios.get(`${API_BASE_URL}/payrolls/${id}`);
           setFormData({
             payrollMonth: res.data.payrollMonth?.slice(0, 10) || '',
             branch: res.data.branch || '',
@@ -81,10 +84,10 @@ const NewPayroll = () => {
     try {
       setLoading(true);
       if (id) {
-        await axios.put(`http://localhost:5000/payrolls/${id}`, formData);
+        await axios.put(`${API_BASE_URL}/payrolls/${id}`, formData);
         alert('Payroll updated successfully!');
       } else {
-        await axios.post('http://localhost:5000/payrolls', formData);
+        await axios.post(`${API_BASE_URL}/payrolls`, formData);
         alert('Payroll saved successfully!');
       }
       setFormData({

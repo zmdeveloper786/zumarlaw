@@ -7,6 +7,9 @@ import { BiImport } from "react-icons/bi";
 import { FaMoneyBillWave, FaUser } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
+
 const tabs = [
   { name: "This Month", count: 0 },
   { name: "All Records", count: 0 },
@@ -34,7 +37,7 @@ export default function Payroll() {
     const fetchPayrolls = async () => {
       setLoading(true);
       try {
-        const res = await axios.get("http://localhost:5000/payrolls");
+        const res = await axios.get(`${API_BASE_URL}/payrolls`);
         setPayrolls(res.data);
       } catch (err) {
         setPayrolls([]);
@@ -49,7 +52,7 @@ export default function Payroll() {
     // Fetch employees for Quick Salary Pay
     const fetchEmployees = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/admin/roles", { withCredentials: true });
+        const res = await axios.get(`${API_BASE_URL}/admin/roles`, { withCredentials: true });
         setEmployeeList(res.data);
       } catch (err) {
         setEmployeeList([]);
@@ -80,7 +83,7 @@ export default function Payroll() {
     if (!window.confirm("Are you sure you want to delete this payroll?")) return;
     try {
       setLoading(true);
-      await axios.delete(`http://localhost:5000/payrolls/${id}`);
+      await axios.delete(`${API_BASE_URL}/payrolls/${id}`);
       setPayrolls((prev) => prev.filter((p) => p._id !== id));
       toast.success("Payroll deleted successfully!");
     } catch (err) {
@@ -105,7 +108,7 @@ export default function Payroll() {
     e.preventDefault();
     try {
       setLoading(true);
-      await axios.put(`http://localhost:5000/payrolls/${editData._id}`, editData);
+      await axios.put(`${API_BASE_URL}/payrolls/${editData._id}`, editData);
       setPayrolls((prev) => prev.map((p) => (p._id === editData._id ? editData : p)));
       toast.success("Payroll updated successfully!");
       setEditModal(false);
@@ -161,7 +164,7 @@ export default function Payroll() {
                 const paymentDate = today.toISOString().slice(0, 10);
                 const results = await Promise.all(
                   employeeList.map(emp =>
-                    axios.post('http://localhost:5000/payrolls', {
+                    axios.post(`${API_BASE_URL}/payrolls`, {
                       employee: emp.name,
                       salary: emp.salary,
                       branch: emp.branch,
@@ -262,7 +265,7 @@ export default function Payroll() {
                 paidBy: "arslan",
                 payrollMonth: monthStr
               };
-              const res = await axios.post("http://localhost:5000/payrolls", payload);
+              const res = await axios.post(`${API_BASE_URL}/payrolls`, payload);
               setPayrolls((prev) => [res.data, ...prev]);
               toast.success("Salary paid successfully!");
               setSelectedEmp(null);

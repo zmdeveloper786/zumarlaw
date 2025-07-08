@@ -3,6 +3,8 @@ import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 const Roles = () => {
   const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -17,7 +19,7 @@ const Roles = () => {
   const fetchEmployees = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:5000/admin/roles', {
+      const response = await axios.get(`${API_URL}/admin/roles`, {
         withCredentials: true
       });
       setEmployees(response.data);
@@ -39,7 +41,7 @@ const Roles = () => {
 
     try {
       setLoading(true);
-      await axios.delete(`http://localhost:5000/admin/roles/${id}`, {
+      await axios.delete(`${API_URL}/admin/roles/${id}`, {
         withCredentials: true
       });
       toast.success('Employee deleted successfully');
@@ -170,7 +172,7 @@ const Roles = () => {
             onClick={async () => {
               try {
                 setLoading(true);
-                await axios.put(`http://localhost:5000/admin/roles/${editId}`, form, { withCredentials: true });
+                await axios.put(`${API_URL}/admin/roles/${editId}`, form, { withCredentials: true });
                 toast.success('Employee updated successfully!');
                 setIsEditing(false);
                 setEditId(null);

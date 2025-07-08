@@ -444,13 +444,16 @@ const AddServiceDetails = () => {
 
       const token = localStorage.getItem('token');
 
-      const response = await fetch('http://localhost:5000/invoices', {
+      const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
+      const response = await fetch(`${API_BASE_URL}/invoices`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
         },
         body: submissionData,
       });
+
 
       const result = await response.json();
 

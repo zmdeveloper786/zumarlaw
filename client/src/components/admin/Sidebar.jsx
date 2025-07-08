@@ -6,6 +6,10 @@ import logo from '../../assets/ZumarLogo.png';
 import { FaTachometerAlt, FaUsers, FaTasks, FaSignOutAlt, FaBars, FaMoneyCheckAlt, FaUserShield, FaUserFriends, FaUserCog, FaChevronDown, FaPlus, FaFileImport, FaExchangeAlt } from 'react-icons/fa';
 import { jwtDecode } from 'jwt-decode';
 
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
+
 const Sidebar = () => {
     const location = useLocation();
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -14,7 +18,7 @@ const Sidebar = () => {
 
     const handleLogout = async () => {
         try {
-            await axios.get('http://localhost:5000/admin/logout', { withCredentials: true });
+            await axios.get(`${API_BASE_URL}/admin/logout`, { withCredentials: true });
             localStorage.removeItem('adminToken');
             localStorage.removeItem('employeeToken');
             toast.success('Successfully logged out');

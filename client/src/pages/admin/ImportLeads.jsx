@@ -6,6 +6,9 @@ import { ChevronRightIcon, HomeIcon } from "@heroicons/react/20/solid";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
 const ImportLeads = () => {
     const [filename, setFilename] = useState("");
     const [leads, setLeads] = useState([]);
@@ -94,7 +97,7 @@ const ImportLeads = () => {
     const handleImport = async () => {
         if (!leads.length) return toast.error("No leads to import");
         try {
-            await axios.post("http://localhost:5000/leads/import", { leads });
+            await axios.post(`${API_BASE_URL}/leads/import`, { leads });
             toast.success("Leads imported successfully!");
             setLeads([]);
             setFilename("");

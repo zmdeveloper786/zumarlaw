@@ -4,6 +4,8 @@ import { toast } from "react-hot-toast";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
 const EmployeeLogin = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -16,7 +18,7 @@ const EmployeeLogin = () => {
         setLoading(true);
 
         try {
-            const res = await axios.post("http://localhost:5000/employee-login", {
+            const res = await axios.post(`${API_BASE_URL}/employee-login`, {
                 email,
                 password
             });

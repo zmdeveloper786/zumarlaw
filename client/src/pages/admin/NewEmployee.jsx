@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
+
 const NewEmployee = ({ onEmployeeAdded }) => {
   const [form, setForm] = useState({
     name: '',
@@ -76,8 +79,8 @@ const NewEmployee = ({ onEmployeeAdded }) => {
     try {
       setLoading(true);
       const endpoint = isEditing
-        ? `http://localhost:5000/admin/roles/${editId}`
-        : 'http://localhost:5000/admin/roles';
+        ? `${API_BASE_URL}/admin/roles/${editId}`
+        : `${API_BASE_URL}/admin/roles`;
 
       const method = isEditing ? 'put' : 'post';
 

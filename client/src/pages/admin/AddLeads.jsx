@@ -4,6 +4,8 @@ import { toast } from 'react-hot-toast';
 import axios from 'axios';
 import { FiUser, FiCreditCard, FiPhone, FiCalendar, FiCheckCircle, FiChevronDown } from 'react-icons/fi';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
 const AddLeads = () => {
     const { register, handleSubmit, formState: { errors }, reset, control } = useForm();
 
@@ -25,7 +27,7 @@ const AddLeads = () => {
             nextFollowUpDate: data.nextFollowUpDate,
         };
         try {
-            await axios.post('http://localhost:5000/leads', lead);
+            await axios.post(`${API_BASE_URL}/leads`, lead);
             toast.success('Lead added successfully!');
             reset();
         } catch (err) {

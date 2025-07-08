@@ -20,12 +20,15 @@ const UserDashboard = () => {
       setLoading(true);
       const token = localStorage.getItem('token');
 
-      const response = await axios.get('http://localhost:5000/userpanel/services', {
+      const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
+      const response = await axios.get(`${API_BASE_URL}/userpanel/services`, {
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
-        withCredentials: true
+        withCredentials: true,
       });
+
 
       setUserServices(response.data);
     } catch (err) {
@@ -60,11 +63,10 @@ const UserDashboard = () => {
                     <td className="py-2">{service.serviceTitle}</td>
                     <td className="py-2">{service.personalId?.name}</td>
                     <td className="py-2">
-                      <span className={`text-xs px-2 py-1 rounded-full ${
-                        service.formFields?.status === 'completed' ? 'bg-green-100 text-green-700' :
-                        service.formFields?.status === 'in-progress' ? 'bg-yellow-100 text-yellow-700' :
-                        service.formFields?.status === 'pending' ? 'bg-red-100 text-red-700' :
-                        'bg-gray-100 text-gray-600'}
+                      <span className={`text-xs px-2 py-1 rounded-full ${service.formFields?.status === 'completed' ? 'bg-green-100 text-green-700' :
+                          service.formFields?.status === 'in-progress' ? 'bg-yellow-100 text-yellow-700' :
+                            service.formFields?.status === 'pending' ? 'bg-red-100 text-red-700' :
+                              'bg-gray-100 text-gray-600'}
                       `}>
                         {service.formFields?.status || 'N/A'}
                       </span>

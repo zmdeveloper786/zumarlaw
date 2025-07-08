@@ -38,7 +38,7 @@ const SignUp = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/auth/signup', {
+      const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/auth/signup`, {
         firstName: formData.firstName,
         lastName: formData.lastName,
         CNIC: formData.CNIC,
@@ -61,7 +61,8 @@ const SignUp = () => {
 
   const handleGoogleSignup = () => {
     toast.loading('Redirecting to Google...');
-    window.location.href = 'http://localhost:5000/auth/google';
+    const baseURL = import.meta.env.VITE_API_BASE_URL;
+    window.location.href = `${baseURL}/auth/google`;
   };
 
   useEffect(() => {

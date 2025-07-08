@@ -1,71 +1,3 @@
-// import { useState } from 'react';
-// import axios from 'axios';
-
-// const ForgetPassword = () => {
-//   const [email, setEmail] = useState('');
-//   const [emailVerified, setEmailVerified] = useState(false);
-//   const [newPassword, setNewPassword] = useState('');
-//   const [message, setMessage] = useState('');
-
-//   const handleCheckEmail = async () => {
-//     try {
-//       const res = await axios.post('http://localhost:5000/auth/forgot-password', { email });
-//       setEmailVerified(true);
-//       setMessage('Email verified. Enter new password.');
-//     } catch (error) {
-//       setMessage(error.response?.data?.message || 'Email not found');
-//     }
-//   };
-
-//   const handleResetPassword = async () => {
-//     try {
-//       await axios.post('http://localhost:5000/auth/reset-password', {
-//         email,
-//         newPassword,
-//       });
-//       setMessage('Password reset successful. Redirecting...');
-//       setTimeout(() => window.location.href = '/login', 2000);
-//     } catch (error) {
-//       setMessage(error.response?.data?.message || 'Error resetting password');
-//     }
-//   };
-
-//   return (
-//     <div style={{ maxWidth: 400, margin: 'auto', padding: '1rem' }}>
-//       <h2>Forget Password</h2>
-//       {!emailVerified ? (
-//         <>
-//           <input
-//             type="email"
-//             placeholder="Enter email"
-//             value={email}
-//             onChange={e => setEmail(e.target.value)}
-//             style={{ width: '100%', marginBottom: 10 }}
-//           />
-//           <button onClick={handleCheckEmail}>Verify Email</button>
-//         </>
-//       ) : (
-//         <>
-//           <input
-//             type="password"
-//             placeholder="New password"
-//             value={newPassword}
-//             onChange={e => setNewPassword(e.target.value)}
-//             style={{ width: '100%', marginBottom: 10 }}
-//           />
-//           <button onClick={handleResetPassword}>Reset Password</button>
-//         </>
-//       )}
-//       {message && <p>{message}</p>}
-//     </div>
-//   );
-// };
-
-// export default ForgetPassword;
-
-
-
-
 import { useState } from 'react';
 import axios from 'axios';
 
@@ -77,7 +9,7 @@ const ForgetPassword = () => {
 
   const handleCheckEmail = async () => {
     try {
-      const res = await axios.post('http://localhost:5000/auth/forgot-password', { email });
+     await axios.post(`${import.meta.env.VITE_API_BASE_URL}/auth/forgot-password`, { email });
       setEmailVerified(true);
       setMessage('✅ Email verified. Enter your new password.');
     } catch (error) {
@@ -87,7 +19,7 @@ const ForgetPassword = () => {
 
   const handleResetPassword = async () => {
     try {
-      await axios.post('http://localhost:5000/auth/reset-password', {
+      await axios.post(`${import.meta.env.VITE_API_BASE_URL}/auth/reset-password`, {
         email,
         newPassword,
       });

@@ -11,6 +11,9 @@ const tabs = [
   { name: "Follow-Ups", count: 10 },
 ];
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
+
 export default function LeadManagement() {
   const [activeTab, setActiveTab] = useState("Today Leads");
   const [searchTerm, setSearchTerm] = useState("");
@@ -31,7 +34,7 @@ export default function LeadManagement() {
 
   const fetchLeads = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/leads");
+      const res = await axios.get(`${API_BASE_URL}/leads`);
       setLeads(res.data);
     } catch (err) {
       setLeads([]);

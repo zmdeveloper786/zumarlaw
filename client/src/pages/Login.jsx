@@ -21,7 +21,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        'http://localhost:5000/auth/login',
+        `${import.meta.env.VITE_API_BASE_URL}/auth/login`,
         formData,
         {
           headers: { 'Content-Type': 'application/json' },
@@ -53,9 +53,16 @@ const Login = () => {
     }
   };
 
+
+  // const handleGoogleLogin = () => {
+  //   toast.loading('Redirecting to Google...');
+  //   window.location.href = 'http://localhost:5000/auth/google';
+  // };
+
   const handleGoogleLogin = () => {
     toast.loading('Redirecting to Google...');
-    window.location.href = 'http://localhost:5000/auth/google';
+    const baseURL = import.meta.env.VITE_API_BASE_URL;
+    window.location.href = `${baseURL}/auth/google`;
   };
 
   useEffect(() => {
