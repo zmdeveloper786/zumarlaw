@@ -22,21 +22,21 @@ function generateToken(user) {
 }
 
 // ✅ Google OAuth login
-router.get('/google', passport.authenticate('google', {
-  scope: ['profile', 'email'],
-  session: false,
-}));
+// router.get('/google', passport.authenticate('google', {
+//   scope: ['profile', 'email'],
+//   session: false,
+// }));
 
-router.get('/google/callback',
-  passport.authenticate('google', { failureRedirect: '/login', session: false }),
-  (req, res) => {
-    const user = req.user;
-    const token = generateToken(user);
+// router.get('/google/callback',
+//   passport.authenticate('google', { failureRedirect: '/login', session: false }),
+//   (req, res) => {
+//     const user = req.user;
+//     const token = generateToken(user);
 
-    const redirectUrl = `${process.env.CLIENT_URL}/home?token=${token}&user=${encodeURIComponent(JSON.stringify(user))}`;
-    res.redirect(redirectUrl);
-  }
-);
+//     const redirectUrl = `${process.env.CLIENT_URL}/home?token=${token}&user=${encodeURIComponent(JSON.stringify(user))}`;
+//     res.redirect(redirectUrl);
+//   }
+// );
 
 // ✅ Email/Password Login
 router.post('/login', async (req, res) => {
