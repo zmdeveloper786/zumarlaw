@@ -450,7 +450,7 @@ const AddServiceDetails = () => {
         return;
       }
 
-      const response = await fetch('http://localhost:5000/invoices', {
+      const response = await fetch('194.238.16.80:5000/invoices', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,

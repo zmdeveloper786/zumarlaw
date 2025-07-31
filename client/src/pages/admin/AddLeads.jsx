@@ -24,7 +24,7 @@ const AddLeads = () => {
             remarks: data.remarks,
         };
         try {
-            await axios.post('http://localhost:5000/leads', lead);
+            await axios.post('194.238.16.80:5000/leads', lead);
             toast.success('Lead added successfully!');
             reset();
         } catch (err) {

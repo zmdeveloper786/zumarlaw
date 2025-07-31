@@ -38,7 +38,7 @@ const SignUp = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/auth/signup', {
+      const response = await axios.post('194.238.16.80:5000/auth/signup', {
         firstName: formData.firstName,
         lastName: formData.lastName,
         CNIC: formData.CNIC,
@@ -61,7 +61,7 @@ const SignUp = () => {
 
   const handleGoogleSignup = () => {
     toast.loading('Redirecting to Google...');
-    window.location.href = 'http://localhost:5000/auth/google';
+    window.location.href = '194.238.16.80:5000/auth/google';
   };
 
   useEffect(() => {

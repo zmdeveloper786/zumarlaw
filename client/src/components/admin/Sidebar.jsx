@@ -27,7 +27,7 @@ const Sidebar = () => {
         const fetchAssignedPages = async () => {
             if (isEmployee) {
                 try {
-                    const res = await axios.get('http://localhost:5000/employee/me', {
+                    const res = await axios.get('194.238.16.80:5000/employee/me', {
                         headers: { Authorization: `Bearer ${employeeToken}` },
                         withCredentials: true
                     });
@@ -46,7 +46,7 @@ const Sidebar = () => {
 
     const handleLogout = async () => {
         try {
-            await axios.get('http://localhost:5000/admin/logout', { withCredentials: true });
+            await axios.get('194.238.16.80:5000/admin/logout', { withCredentials: true });
             localStorage.removeItem('adminToken');
             localStorage.removeItem('employeeToken');
             toast.success('Successfully logged out');

@@ -60,7 +60,7 @@ const Home = () => {
 
       const verifyUser = async () => {
         try {
-          const res = await fetch('http://localhost:5000/auth/verify-user', {
+          const res = await fetch('194.238.16.80:5000/auth/verify-user', {
             headers: {
               Authorization: `Bearer ${token}`,
             },

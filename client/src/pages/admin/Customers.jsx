@@ -10,7 +10,7 @@ const Customers = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/admin/customers');
+        const res = await axios.get('194.238.16.80:5000/admin/customers');
         setUsers(res.data);
         setFilteredUsers(res.data);
       } catch (error) {

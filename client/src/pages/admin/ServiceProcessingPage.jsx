@@ -85,7 +85,7 @@ const ServiceProcessingPage = () => {
   const handleAssignEmployee = async (row, employeeName) => {
     try {
       await axios.patch(
-        `http://localhost:5000/admin/services/${row._id}/assign`,
+        `194.238.16.80:5000/admin/services/${row._id}/assign`,
         { assignedTo: employeeName },
         getAuthHeaders()
       );
@@ -118,7 +118,7 @@ const ServiceProcessingPage = () => {
     setLoading(true);
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.get('http://localhost:5000/admin/services', {
+      const response = await axios.get('194.238.16.80:5000/admin/services', {
         headers: token ? { 'Authorization': `Bearer ${token}` } : {}
       });
       setServices(response.data);
@@ -147,7 +147,7 @@ const ServiceProcessingPage = () => {
     const nextStatus = statusOrder[(currentIdx + 1) % statusOrder.length];
     try {
       await axios.patch(
-        `http://localhost:5000/admin/services/${row._id}/status`,
+        `194.238.16.80:5000/admin/services/${row._id}/status`,
         { status: nextStatus },
         getAuthHeaders()
       );
@@ -163,7 +163,7 @@ const ServiceProcessingPage = () => {
     const nextStatus = paymentOrder[(currentIdx + 1) % paymentOrder.length];
     try {
       await axios.patch(
-        `http://localhost:5000/admin/services/${row._id}/payment-status`,
+        `194.238.16.80:5000/admin/services/${row._id}/payment-status`,
         { paymentStatus: nextStatus },
         getAuthHeaders()
       );
@@ -221,7 +221,7 @@ const ServiceProcessingPage = () => {
 
     try {
       await axios.post(
-        `http://localhost:5000/admin/services/${selectedRow._id}/certificate`,
+        `194.238.16.80:5000/admin/services/${selectedRow._id}/certificate`,
         formData,
         {
           headers: {
@@ -342,7 +342,7 @@ const ServiceProcessingPage = () => {
     try {
       const ids = selectedRows.map(row => row._id);
       await axios.post(
-        'http://localhost:5000/invoices/delete-multiple',
+        '194.238.16.80:5000/invoices/delete-multiple',
         { ids },
         getAuthHeaders()
       );
@@ -659,7 +659,7 @@ const ServiceProcessingPage = () => {
                       const JSZip = (await import('jszip')).default;
                       const zip = new JSZip();
                       await Promise.all(imageFiles.map(async (file) => {
-                        const url = `http://localhost:5000/uploads/${encodeURIComponent(file)}`;
+                        const url = `194.238.16.80:5000/uploads/${encodeURIComponent(file)}`;
                         try {
                           const response = await fetch(url);
                           if (!response.ok) throw new Error('Failed to fetch ' + file);
@@ -707,7 +707,7 @@ const ServiceProcessingPage = () => {
                       const JSZip = (await import('jszip')).default;
                       const zip = new JSZip();
                       await Promise.all(docFiles.map(async (file) => {
-                        const url = `http://localhost:5000/uploads/${encodeURIComponent(file)}`;
+                        const url = `194.238.16.80:5000/uploads/${encodeURIComponent(file)}`;
                         try {
                           const response = await fetch(url);
                           if (!response.ok) throw new Error('Failed to fetch ' + file);
@@ -793,7 +793,7 @@ const ServiceProcessingPage = () => {
                                 return (
                                   <img
                                     key={i}
-                                    src={`http://localhost:5000/uploads/${item.replace(/.*uploads[\\/]/, '')}`}
+                                    src={`194.238.16.80:5000/uploads/${item.replace(/.*uploads[\\/]/, '')}`}
                                     alt={`Uploaded ${key} ${i + 1}`}
                                     className={`h-auto border rounded mb-1 ${key.toLowerCase().includes('cnic') || key.toLowerCase().includes('document') ? 'w-full max-w-xs' : 'w-[100px]'}`}
                                     style={{ maxWidth: '100%' }}
@@ -801,7 +801,7 @@ const ServiceProcessingPage = () => {
                                 );
                               } else if (typeof item === 'string' && item.match(/\.pdf$/i)) {
                                 return (
-                                  <a key={i} href={`http://localhost:5000/uploads/${item.replace(/.*uploads[\\/]/, '')}`} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline block">PDF File {i + 1}</a>
+                                  <a key={i} href={`194.238.16.80:5000/uploads/${item.replace(/.*uploads[\\/]/, '')}`} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline block">PDF File {i + 1}</a>
                                 );
                               } else if (typeof item === 'object' && item !== null) {
                                 return (
@@ -817,13 +817,13 @@ const ServiceProcessingPage = () => {
                             })
                           ) : typeof value === 'string' && value.match(/\.(jpg|jpeg|png)$/i) ? (
                             <img
-                              src={`http://localhost:5000/uploads/${value.replace(/.*uploads[\\/]/, '')}`}
+                              src={`194.238.16.80:5000/uploads/${value.replace(/.*uploads[\\/]/, '')}`}
                               alt={`Uploaded ${key}`}
                               className={`h-auto border rounded mb-1 ${key.toLowerCase().includes('cnic') || key.toLowerCase().includes('document') ? 'w-full max-w-xs' : 'w-[100px]'}`}
                               style={{ maxWidth: '100%' }}
                             />
                           ) : typeof value === 'string' && value.match(/\.pdf$/i) ? (
-                            <a href={`http://localhost:5000/uploads/${value.replace(/.*uploads[\\/]/, '')}`} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">PDF File</a>
+                            <a href={`194.238.16.80:5000/uploads/${value.replace(/.*uploads[\\/]/, '')}`} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">PDF File</a>
                           ) : typeof value === 'object' && value !== null ? (
                             <div>
                               {Object.entries(value).map(([k, v]) => (

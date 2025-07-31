@@ -21,7 +21,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        'http://localhost:5000/auth/login',
+        '194.238.16.80:5000/auth/login',
         formData,
         {
           headers: { 'Content-Type': 'application/json' },
@@ -55,7 +55,7 @@ const Login = () => {
 
   const handleGoogleLogin = () => {
     toast.loading('Redirecting to Google...');
-    window.location.href = 'http://localhost:5000/auth/google';
+    window.location.href = '194.238.16.80:5000/auth/google';
   };
 
   useEffect(() => {

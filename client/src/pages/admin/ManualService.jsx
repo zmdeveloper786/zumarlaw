@@ -52,7 +52,7 @@ function InvoiceContent({ invoiceData }) {
                         return (
                           <img
                             key={i}
-                            src={`http://localhost:5000/uploads/${item.replace(/.*uploads[\\/]/, '')}`}
+                            src={`194.238.16.80:5000/uploads/${item.replace(/.*uploads[\\/]/, '')}`}
                             alt={`Uploaded ${key} ${i + 1}`}
                             className={`h-auto border rounded mb-1 ${key.toLowerCase().includes('cnic') || key.toLowerCase().includes('document') ? 'w-full max-w-xs' : 'w-[100px]'}`}
                             style={{ maxWidth: '100%' }}
@@ -60,7 +60,7 @@ function InvoiceContent({ invoiceData }) {
                         );
                       } else if (typeof item === 'string' && item.match(/\.pdf$/i)) {
                         return (
-                          <a key={i} href={`http://localhost:5000/uploads/${item.replace(/.*uploads[\\/]/, '')}`} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline block">PDF File {i + 1}</a>
+                          <a key={i} href={`194.238.16.80:5000/uploads/${item.replace(/.*uploads[\\/]/, '')}`} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline block">PDF File {i + 1}</a>
                         );
                       } else if (typeof item === 'object' && item !== null) {
                         // Render object (e.g. member details)
@@ -79,13 +79,13 @@ function InvoiceContent({ invoiceData }) {
                     })
                   ) : typeof value === 'string' && value.match(/\.(jpg|jpeg|png)$/i) ? (
                     <img
-                      src={`http://localhost:5000/uploads/${value.replace(/.*uploads[\\/]/, '')}`}
+                      src={`194.238.16.80:5000/uploads/${value.replace(/.*uploads[\\/]/, '')}`}
                       alt={`Uploaded ${key}`}
                       className={`h-auto border rounded mb-1 ${key.toLowerCase().includes('cnic') || key.toLowerCase().includes('document') ? 'w-full max-w-xs' : 'w-[100px]'}`}
                       style={{ maxWidth: '100%' }}
                     />
                   ) : typeof value === 'string' && value.match(/\.pdf$/i) ? (
-                    <a href={`http://localhost:5000/uploads/${value.replace(/.*uploads[\\/]/, '')}`} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">PDF File</a>
+                    <a href={`194.238.16.80:5000/uploads/${value.replace(/.*uploads[\\/]/, '')}`} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">PDF File</a>
                   ) : typeof value === 'object' && value !== null ? (
                     <div>
                       {Object.entries(value).map(([k, v]) => (
@@ -110,13 +110,13 @@ function InvoiceContent({ invoiceData }) {
                       <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginRight: 16 }}>
                         <span style={{ fontWeight: 500, fontSize: 13 }}>Front:</span>
                         {group.front && group.front.replace(/\\/g, '/').includes('uploads/') ? (
-                          <img src={`http://localhost:5000/uploads/${group.front.replace(/\\/g, '/').split('uploads/').pop().replace(/^\/+/, '')}`} alt="CNIC Front" className="w-full max-w-xs h-auto border rounded mb-1" style={{ maxWidth: '100%' }} crossOrigin="anonymous" />
+                          <img src={`194.238.16.80:5000/uploads/${group.front.replace(/\\/g, '/').split('uploads/').pop().replace(/^\/+/, '')}`} alt="CNIC Front" className="w-full max-w-xs h-auto border rounded mb-1" style={{ maxWidth: '100%' }} crossOrigin="anonymous" />
                         ) : group.front ? (
                           <span>{group.front}</span>
                         ) : null}
                         <span style={{ fontWeight: 500, fontSize: 13 }}>Back:</span>
                         {group.back && group.back.replace(/\\/g, '/').includes('uploads/') ? (
-                          <img src={`http://localhost:5000/uploads/${group.back.replace(/\\/g, '/').split('uploads/').pop().replace(/^\/+/, '')}`} alt="CNIC Back" className="w-full max-w-xs h-auto border rounded mb-1" style={{ maxWidth: '100%' }} crossOrigin="anonymous" />
+                          <img src={`194.238.16.80:5000/uploads/${group.back.replace(/\\/g, '/').split('uploads/').pop().replace(/^\/+/, '')}`} alt="CNIC Back" className="w-full max-w-xs h-auto border rounded mb-1" style={{ maxWidth: '100%' }} crossOrigin="anonymous" />
                         ) : group.back ? (
                           <span>{group.back}</span>
                         ) : null}
@@ -157,7 +157,7 @@ const ManualService = () => {
     const fetchServices = async () => {
       setLoading(true);
       try {
-        const res = await axios.get('http://localhost:5000/manualService');
+        const res = await axios.get('194.238.16.80:5000/manualService');
         setServices(res.data);
       } catch (err) {
         toast.error('Failed to fetch manual services');
@@ -292,12 +292,12 @@ const ManualService = () => {
               formData.append('certificate', file);
               formData.append('ids', JSON.stringify(selectedRows));
               try {
-                await axios.post('http://localhost:5000/manualService/uploadCertificate', formData, {
+                await axios.post('194.238.16.80:5000/manualService/uploadCertificate', formData, {
                   headers: { 'Content-Type': 'multipart/form-data' },
                 });
                 toast.success('Certificate uploaded successfully!');
                 // Optionally, refresh data
-                const res = await axios.get('http://localhost:5000/manualService');
+                const res = await axios.get('194.238.16.80:5000/manualService');
                 setServices(res.data);
               } catch (err) {
                 toast.error('Failed to upload certificate');
@@ -327,7 +327,7 @@ const ManualService = () => {
               }
               if (!window.confirm('Are you sure you want to delete the selected services?')) return;
               try {
-                await axios.post('http://localhost:5000/manualService/deleteMany', { ids: selectedRows });
+                await axios.post('194.238.16.80:5000/manualService/deleteMany', { ids: selectedRows });
                 toast.success('Selected services deleted!');
                 setServices(prev => prev.filter(row => !selectedRows.includes(row._id)));
                 setSelectedRows([]);
@@ -531,7 +531,7 @@ const ManualService = () => {
                         const JSZip = (await import('jszip')).default;
                         const zip = new JSZip();
                         await Promise.all(imageFiles.map(async (file) => {
-                          const url = `http://localhost:5000/uploads/${encodeURIComponent(file)}`;
+                          const url = `194.238.16.80:5000/uploads/${encodeURIComponent(file)}`;
                           try {
                             const response = await fetch(url);
                             if (!response.ok) throw new Error('Failed to fetch ' + file);
@@ -581,7 +581,7 @@ const ManualService = () => {
                         const JSZip = (await import('jszip')).default;
                         const zip = new JSZip();
                         await Promise.all(docFiles.map(async (file) => {
-                          const url = `http://localhost:5000/uploads/${encodeURIComponent(file)}`;
+                          const url = `194.238.16.80:5000/uploads/${encodeURIComponent(file)}`;
                           try {
                             const response = await fetch(url);
                             if (!response.ok) throw new Error('Failed to fetch ' + file);
