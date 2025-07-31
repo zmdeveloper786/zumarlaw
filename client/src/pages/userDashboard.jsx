@@ -20,7 +20,7 @@ const UserDashboard = () => {
       setLoading(true);
       const token = localStorage.getItem('token');
 
-      const response = await axios.get('194.238.16.80:5000/userpanel/services', {
+      const response = await axios.get('http://194.238.16.80:5000/userpanel/services', {
         headers: {
           Authorization: `Bearer ${token}`
         },
