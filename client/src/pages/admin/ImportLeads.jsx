@@ -94,7 +94,7 @@ const ImportLeads = () => {
     const handleImport = async () => {
         if (!leads.length) return toast.error("No leads to import");
         try {
-            await axios.post("194.238.16.80:5000/leads/import", { leads });
+            await axios.post("http://194.238.16.80:5000/leads/import", { leads });
             toast.success("Leads imported successfully!");
             setLeads([]);
             setFilename("");

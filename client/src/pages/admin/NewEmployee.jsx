@@ -104,8 +104,8 @@ const NewEmployee = ({ onEmployeeAdded }) => {
     try {
       setLoading(true);
       const endpoint = isEditing
-        ? `194.238.16.80:5000/admin/roles/${editId}`
-        : '194.238.16.80:5000/admin/roles';
+        ? `http://194.238.16.80:5000/admin/roles/${editId}`
+        : 'http://194.238.16.80:5000/admin/roles';
 
       const method = isEditing ? 'put' : 'post';
 

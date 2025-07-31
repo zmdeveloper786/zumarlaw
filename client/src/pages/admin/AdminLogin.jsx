@@ -18,7 +18,7 @@ const AdminLogin = () => {
 
     try {
       const res = await axios.post(
-        "194.238.16.80:5000/admin/login",
+        "http://194.238.16.80:5000/admin/login",
         { email, password },
         { withCredentials: true }
       );
